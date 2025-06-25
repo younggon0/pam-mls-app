@@ -6,7 +6,12 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 
 # Streamlit app configuration
-st.set_page_config(page_title="Experiment Trajectory", page_icon="🧬", layout="wide")
+st.set_page_config(
+    page_title="Experiment Trajectory",
+    page_icon="🧬",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 st.title("🧬 Evolve Simulation")
 st.markdown(
@@ -270,9 +275,3 @@ This application simulates sequence measurements across multiple rounds using di
 3. View results and download data as needed
 """
 )
-
-# Error handling and warnings
-if "data_loaded" not in st.session_state:
-    st.warning(
-        "⚠️ Make sure the pickle data files are available in the correct path (data/ directory)."
-    )
