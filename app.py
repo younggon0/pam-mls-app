@@ -15,8 +15,11 @@ st.markdown(
 
 # Sidebar for hyperparameters
 st.sidebar.header("Configuration")
-num_rounds = st.sidebar.selectbox("Number of Rounds", [10, 20], index=0)
+bases = ["A", "C", "G", "T"]
+pam_options = [f"NG{b1}{b2}" for b1 in bases for b2 in bases]
+pam = st.sidebar.selectbox("PAM", pam_options, index=0)
 strategy = st.sidebar.selectbox("Sampling Strategy", ["random", "esmc"], index=0)
+num_rounds = st.sidebar.selectbox("Number of Rounds", [10, 20], index=0)
 sample_per_round = st.sidebar.selectbox("Samples per Round", [10, 15, 20, 25], index=0)
 
 # ESMC-specific parameters
@@ -26,9 +29,6 @@ if strategy == "esmc":
     pool_size = st.sidebar.selectbox("Pool Size", [1000, 2000, 5000, 10000], index=0)
     esmc_model = st.sidebar.selectbox("ESMC Model", ["esmc_300m", "esmc_600m"], index=0)
 
-bases = ["A", "C", "G", "T"]
-pam_options = [f"NG{b1}{b2}" for b1 in bases for b2 in bases]
-pam = st.sidebar.selectbox("PAM", pam_options, index=0)
 seed = st.sidebar.selectbox("Random Seed", [42, 43], index=0)
 
 hparams = {
