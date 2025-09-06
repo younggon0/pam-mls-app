@@ -20,21 +20,31 @@ st.markdown(
 
 # Sidebar for hyperparameters
 st.sidebar.header("Configuration")
+
+# Primary parameters - always visible
 bases = ["A", "C", "G", "T"]
 pam_options = [f"NG{b1}{b2}" for b1 in bases for b2 in bases]
-pam = st.sidebar.selectbox("PAM", pam_options, index=0)
-strategy = st.sidebar.selectbox("Sampling Strategy", ["random", "esmc"], index=0)
-num_rounds = st.sidebar.selectbox("Number of Rounds", [10, 20], index=0)
-sample_per_round = st.sidebar.selectbox("Samples per Round", [10, 15, 20, 25], index=0)
+pam = st.sidebar.selectbox("PAM", pam_options, index=0, help="Protospacer Adjacent Motif sequence")
+strategy = st.sidebar.selectbox("Sampling Strategy", ["random", "esmc"], index=0, help="Strategy for selecting sequences in each round")
 
-# ESMC-specific parameters
-pool_size = 1000
-esmc_model = "esmc_300m"
-if strategy == "esmc":
-    pool_size = st.sidebar.selectbox("Pool Size", [1000, 2000, 5000, 10000], index=0)
-    esmc_model = st.sidebar.selectbox("ESMC Model", ["esmc_300m", "esmc_600m"], index=0)
-
-seed = st.sidebar.selectbox("Random Seed", [42, 43], index=0)
+# Advanced settings - collapsible
+with st.sidebar.expander("⚙️ Advanced Settings", expanded=False):
+    st.markdown("##### Experiment Parameters")
+    num_rounds = st.selectbox("Number of Rounds", [10, 20], index=0, help="Total number of experimental rounds")
+    sample_per_round = st.selectbox("Samples per Round", [10, 15, 20, 25], index=0, help="Number of samples to test in each round")
+    
+    st.markdown("##### ESMC-specific Settings")
+    # ESMC-specific parameters
+    pool_size = 1000
+    esmc_model = "esmc_300m"
+    if strategy == "esmc":
+        pool_size = st.selectbox("Pool Size", [1000, 2000, 5000, 10000], index=0, help="Size of the candidate pool for ESMC sampling")
+        esmc_model = st.selectbox("ESMC Model", ["esmc_300m", "esmc_600m"], index=0, help="ESM model variant to use for embeddings")
+    else:
+        st.info("Pool Size and ESMC Model settings are only available when using ESMC strategy")
+    
+    st.markdown("##### Reproducibility")
+    seed = st.selectbox("Random Seed", [42, 43], index=0, help="Seed for reproducible results")
 
 hparams = {
     "num_round": num_rounds,
