@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 
 # Streamlit app configuration
 st.set_page_config(
-    page_title="Experiment Trajectory",
+    page_title="CRISPR-Cas9 PAM Evolution Simulator",
     page_icon="🧬",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -15,7 +15,7 @@ st.set_page_config(
 
 st.title("🧬 Evolve Simulation")
 st.markdown(
-    "This app simulates different sampling strategy evolving CAS for better PAM recognition."
+    "This app simulates different sampling strategies for evolving CRISPR-Cas9 variants with improved PAM recognition."
 )
 
 # Sidebar for hyperparameters
@@ -270,7 +270,15 @@ st.markdown("---")
 st.subheader("ℹ️ About")
 st.markdown(
     """
-This application simulates sequence measurements across multiple rounds using different sampling strategies.
+This application simulates directed evolution of CRISPR-Cas9 variants to improve PAM (Protospacer Adjacent Motif) recognition using different sampling strategies.
+
+**Based on Research:**  
+This app uses experimental data and machine learning models from:
+> Huang, J., Kim, E., et al. "Custom CRISPR–Cas9 PAM variants via scalable engineering and machine learning."  
+> *Nature* (2025). https://doi.org/10.1038/s41586-025-09021-y
+
+**What it does:**  
+The simulation explores how different sampling strategies (Random vs ESMC) perform in identifying Cas9 variants with enhanced activity for specific PAM sequences, mimicking the directed evolution process described in the paper.
 
 **Features:**
 - Random and ESMC sampling strategies
